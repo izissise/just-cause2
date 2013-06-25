@@ -1,38 +1,36 @@
-#include "CProc_Interface.h"
-
 #include <iostream>
 #include <string>
 #include <fstream>
 
+#include "CProc_Interface.h"
 
 using namespace std;
 
-
-int main()
+int main(int argc, char **argv, char **envp)
 {
-     ifstream config("config.txt", ios::in);  // on ouvre en lecture le fichier de config
+  std::string cfgFile; //the path to the config file
 
-    if(!config)  // si l'ouverture a fonctionné
+  if (argc > 1) //If we have an argument it's the config file
+  	cfgFile = argv[1];
+  else //else we take the default name
+  	cfgFile = "config.txt";
+
+  ifstream config(cfgFile.c_str(), ios::in); //We open in read mode the cfgfile
+  if(!config) //If open was successful
     {
-        cout << "Unable to open the config.txt file !" << endl;
-        return 1;
+      cout << "Unable to open " << cfgFile << endl;
+      return (1);
     }
-    string strJc2Path; //the path to the game
-    string strDllPath; //the path to the dll
+  string strJc2Path; //the path to the game
+  string strDllPath; //the path to the dll
+  getline(config, strJc2Path);
+  getline(config, strDllPath);
 
-    getline(config, strJc2Path);
-    getline(config, strDllPath);
+  Proc_Interface game("", 0, strJc2Path); //We launch the game in pause mode
+  game.insertDll(strDllPath); //Inject dll
+  game.resume_process(); //unpause process
 
-    //on lance le jeux en pause
-    Proc_Interface jeux("",0,strJc2Path);
-    //on injecte la dll
-    jeux.insertDll(strDllPath);
-    //on unpause le process
-    jeux.resume_process();
-
-    config.close();
-
-    Sleep(5000);
-
-    return 0;
+  config.close(); //Close configu file
+  Sleep(5000);
+  return 0;
 }
