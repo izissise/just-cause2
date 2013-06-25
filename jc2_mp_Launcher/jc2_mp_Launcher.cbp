@@ -49,7 +49,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="inc/CError.h" />
 		<Unit filename="inc/CProc_Interface.h" />
+		<Unit filename="inc/psapi.h" />
 		<Unit filename="src/CProc_Interface.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>

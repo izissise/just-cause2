@@ -1,10 +1,11 @@
 #ifndef JC2_H_INCLUDED
 #define JC2_H_INCLUDED
 
+#include <string>
+#include <sstream>
 #include <windows.h>
 #include "psapi.h" //pour les fonctions specifique
-
-#include <string>
+#include "CError.h"
 
 #define MAXWAIT 10000
 
