@@ -1,0 +1,2 @@
+C:\Jeux\Just Cause 2\JustCause2.exe
+C:\hellodll.dll
