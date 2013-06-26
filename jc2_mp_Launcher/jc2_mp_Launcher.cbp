@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="jc2_mp_Launcher" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="jc2_mp_Launcher.exe" prefix_auto="1" extension_auto="0" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="mingw32_compiler" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="src" />
+					<Add directory="inc" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="inc" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="lib/libpsapi.a" />
+					<Add directory="lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="jc2_mp_Launcher.exe" prefix_auto="1" extension_auto="0" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="mingw32_compiler" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="src" />
+					<Add directory="inc" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="inc" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="lib/libpsapi.a" />
+					<Add directory="lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="inc/CError.h" />
+		<Unit filename="inc/CProc_Interface.h" />
+		<Unit filename="inc/psapi.h" />
+		<Unit filename="src/CProc_Interface.cpp" />
+		<Unit filename="src/main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
