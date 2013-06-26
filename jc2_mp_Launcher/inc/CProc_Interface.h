@@ -151,4 +151,12 @@ inline PBYTE DetourGenNop(PBYTE pbCode)
   return pbCode;
 }
 
+template<typename T>
+std::string to_string(const T & Value)
+{
+  std::ostringstream oss;
+  oss << Value;
+  return oss.str();
+}
+
 #endif // JC2_H_INCLUDED

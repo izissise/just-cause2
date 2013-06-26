@@ -11,7 +11,7 @@ Proc_Interface::Proc_Interface(std::string proc_name, bool debug_pri, std::strin
 
   if (debug_pri) //elevated right
     if (!(this->SetDebugumod()))
-      throw error(std::string("Unable to set privilege :("), 0);
+      throw error(std::string("Unable to set privilege, error: ")  + to_string(GetLastError()), 0);
 
   if (game_path.size() > 1) //If we have a game path
     {
@@ -23,7 +23,7 @@ Proc_Interface::Proc_Interface(std::string proc_name, bool debug_pri, std::strin
       //STart the process in its dir
       if (!CreateProcess(game_path.c_str(), NULL, NULL, NULL, FALSE,
                          CREATE_SUSPENDED, NULL, strDir.c_str(), &siLoadee, &m_piLoadee))
-        throw error(std::string("[-] Process can't be created"), 0);
+        throw error(std::string("[-] Process can't be created, error: ")  + to_string(GetLastError()), 0);
       m_Hproc = m_piLoadee.hProcess;
     }
   else if (proc_name.length() > 2) //Else we interfere a already running process
@@ -42,7 +42,7 @@ Proc_Interface::Proc_Interface(std::string proc_name, bool debug_pri, std::strin
       //we open the process in all access mode and get the handle.
       m_Hproc = OpenProcess(PROCESS_ALL_ACCESS, NULL, m_PID);
       if(!m_Hproc)  //Si on réussi à ouvrire le process.
-        throw error(std::string("[-] Process can't be opened\n-->Operation Canceled."), 0);
+        throw error(std::string("[-] Process can't be opened, error: ")  + to_string(GetLastError()), 0);
     }
 }
 
@@ -58,17 +58,19 @@ void Proc_Interface::resume_process()
 
 bool Proc_Interface::write_memory(void* Addr, const void* PATCH, unsigned int size)
 {
-  SIZE_T nbWritte = 0;
+  SIZE_T nbWrite = 0;
+  bool ret;
 
-  if (WriteProcessMemory (m_Hproc, (LPVOID)Addr, (BYTE*)PATCH, size, &nbWritte))
+  while ((nbWrite != size)
+         && (ret = WriteProcessMemory (m_Hproc, (LPVOID)Addr, (BYTE*)PATCH, size, &nbWrite)))
     {
-      if (nbWritte != size) //We check that we written all the byte
-        throw error(std::string("[-] Failled to patch memory :(\n-->Unknows reason"), 0);
-    }
-  else   //if an error occurred
-    {
-      throw error(std::string("[-] Memory can't be written\n-->Operation Canceled."), 0);
-      return (1);
+      if (!ret)
+        {
+          throw error(std::string("[-] Memory can't be written error: ") + to_string(GetLastError()), 0);
+          return (1);
+        }
+      Addr = (void*)(&(((char*)Addr)[nbWrite]));
+      size -= nbWrite;
     }
   return (0);
 }
@@ -76,16 +78,18 @@ bool Proc_Interface::write_memory(void* Addr, const void* PATCH, unsigned int si
 bool Proc_Interface::read_memory(void* Addr, void* buffer, unsigned int size)
 {
   SIZE_T nbRead = 0;
+  bool ret;
 
-  if (ReadProcessMemory(m_Hproc, (LPVOID)Addr, buffer, size, &nbRead))
+  while ((nbRead != size)
+         && (ret = ReadProcessMemory(m_Hproc, (LPVOID)Addr, buffer, size, &nbRead)))
     {
-      if (nbRead != size) //On vérifie que les Bytes ont bien étée écrites.
-        throw error(std::string("[-] Failled to read memory :(\n-->Unknows reason"), 0);
-    }
-  else //Unable to read
-    {
-      throw error(std::string("[-] Memory can't be readden\n-->Operation Canceled."), 0);
-      return (1);
+      if (!ret)
+        {
+          throw error(std::string("[-] Memory can't be read-den: ") + to_string(GetLastError()), 0);
+          return (1);
+        }
+      Addr = (void*)(&(((char*)Addr)[nbRead]));
+      size -= nbRead;
     }
   return (0);
 }
@@ -96,7 +100,7 @@ void* Proc_Interface::alloc_memory(void* Adrr, int taille) //NULL addr if you do
   Adrr = VirtualAllocEx(m_Hproc, (LPVOID)Adrr, (SIZE_T)taille, MEM_COMMIT | MEM_RESERVE | MEM_TOP_DOWN, PAGE_EXECUTE_READWRITE);
   //MEM_commit to init mem to zero
   if(Adrr == NULL) //Alloc failed
-    throw error(std::string("[-] Memory can't be allocated: ") /*+ std::string(GetLastError())*/, 0);
+    throw error(std::string("[-] Memory can't be allocated, error: ")  + to_string(GetLastError()), 0);
   return Adrr;
 }
 
@@ -140,7 +144,7 @@ bool Proc_Interface::insertDll(std::string dll, int method)
       DWORD ret = 0;
       GetExitCodeThread(hRemoteThread, &(ret));
       if(!ret)
-        throw error(std::string("[-]ERROR Remote Thread fail with exit code: ")/* + std::string(ret)*/, 0);
+        throw error(std::string("[-]ERROR Remote Thread fail with exit code: ") + to_string(ret), 0);
       //Free the memory created for dll name
       this->dealloc_memory(pLibPathRemote, dll.size());
       return (res);
