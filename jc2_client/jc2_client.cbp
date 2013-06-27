@@ -52,6 +52,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="inc/Cthread.h" />
+		<Unit filename="inc/pthread.h" />
+		<Unit filename="src/Cthread.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<envvars />
