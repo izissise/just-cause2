@@ -10,6 +10,7 @@ CThread::CThread(void (*func)(void*), void* data)
 
 CThread::~CThread()
 {
+  this->SetState(STOP);
   CloseHandle(m_thread);
 }
 
@@ -42,7 +43,7 @@ DWORD WINAPI CThread::threadHandleFunc(void* obj)
   void (*func)(void*) = thread->GetFunc();
   void* data = thread->GetData();
 
-  while(1)
+  do
     {
       if(thread->GetPause() == PAUSE)
         Sleep(10);
@@ -53,6 +54,7 @@ DWORD WINAPI CThread::threadHandleFunc(void* obj)
         }
       thread->SetState(IDLE);
     }
+  while(thread->GetState() != STOP);
   thread->SetExited(true);
   return (0);
 }

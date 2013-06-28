@@ -14,6 +14,8 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add directory="src" />
 					<Add directory="inc" />
@@ -35,6 +37,8 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
 					<Add directory="src" />
 					<Add directory="inc" />
 				</Compiler>
@@ -53,8 +57,9 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="inc/Cthread.h" />
-		<Unit filename="inc/pthread.h" />
+		<Unit filename="inc/hooksystem.h" />
 		<Unit filename="src/Cthread.cpp" />
+		<Unit filename="src/hooksystem.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<envvars />

@@ -1,11 +1,14 @@
 #ifndef CTHREAD_H_INCLUDED
 #define CTHREAD_H_INCLUDED
 
+#define STOP 2
 #define BUSY 1
 #define IDLE 0
 #define PAUSE 1
 #define RUN 0
 
+#include <string>
+#include <sstream>
 #include <windows.h>
 
 class CThread
@@ -19,6 +22,7 @@ public:
   int GetExited() {return m_threadExited;}
   void (*GetFunc())(void*) {return m_func;}
   void* GetData() {return m_data;}
+  void SetData(void* data) {m_data = data;}
   void SetPause(int pause) {m_pause = pause;}
   void SetState(int state) {m_state = state;}
   void SetExited(bool exit) {m_threadExited = exit;}
@@ -36,5 +40,13 @@ private:
   void (*m_func)(void*); //threaded func ptr
   void* m_data;
 };
+
+template<typename T>
+std::string to_string(const T & Value)
+{
+  std::ostringstream oss;
+  oss << Value;
+  return oss.str();
+}
 
 #endif // CTHREAD_H_INCLUDED
