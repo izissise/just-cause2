@@ -3,7 +3,7 @@
 #include "hooksystem.h"
 #include "Cthread.h"
 
-CThread* dllThread;
+CThread* dllThread = NULL;
 
 void dllthreadmain(void* arg)
 {
@@ -44,6 +44,7 @@ extern "C"
         initThread();
         break;
       case DLL_THREAD_ATTACH:
+        delete dllThread; //Delete thread
         break;
       case DLL_THREAD_DETACH:
         delete dllThread;

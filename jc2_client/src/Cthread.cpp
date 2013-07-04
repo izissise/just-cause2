@@ -11,7 +11,7 @@ CThread::CThread(void (*func)(void*), void* data)
 CThread::~CThread()
 {
   this->SetState(STOP);
-  CloseHandle(m_thread);
+  pthread_cancel(m_thread);
 }
 
 void CThread::waitThreadIDLE()
@@ -28,16 +28,14 @@ void CThread::waitThreadIDLE()
 void CThread::startThread()
 {
   this->SetPause(RUN);
-  m_thread = CreateThread(NULL, 0,
-                          &CThread::threadHandleFunc, (void*)this, 0, NULL);
-  if (m_thread == NULL)
+  if (!pthread_create(&m_thread,NULL, &CThread::threadHandleFunc, (void*)this))  //create thread
     {
       this->SetPause(PAUSE);
       this->SetExited(true);
     }
 }
 
-DWORD WINAPI CThread::threadHandleFunc(void* obj)
+void* CThread::threadHandleFunc(void* obj)
 {
   CThread* thread = reinterpret_cast<CThread*>(obj);
   void (*func)(void*) = thread->GetFunc();
@@ -45,16 +43,23 @@ DWORD WINAPI CThread::threadHandleFunc(void* obj)
 
   do
     {
+      MessageBox(NULL, "boucle", NULL, MB_OK);
       if(thread->GetPause() == PAUSE)
-        Sleep(10);
+        {
+          Sleep(10);
+          MessageBox(NULL, "sleep", NULL, MB_OK);
+        }
       else
         {
           thread->SetState(BUSY);
-          func(data);
+          MessageBox(NULL, "call", NULL, MB_OK);
+          // func(data);
+          MessageBox(NULL, "bacall", NULL, MB_OK);
         }
       thread->SetState(IDLE);
     }
   while(thread->GetState() != STOP);
+  MessageBox(NULL, "byee", NULL, MB_OK);
   thread->SetExited(true);
-  return (0);
+  return (NULL);
 }

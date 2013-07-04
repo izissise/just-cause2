@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Just cause 2">
+		<Project filename="jc2_client/jc2_client.cbp" />
+		<Project filename="jc2_mp_Launcher/jc2_mp_Launcher.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

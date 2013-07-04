@@ -10,6 +10,9 @@
 #include <string>
 #include <sstream>
 #include <windows.h>
+#include <pthread.h>
+
+#include "utilities.h"
 
 class CThread
 {
@@ -31,22 +34,14 @@ public:
   void waitThreadIDLE();
 
 private:
-  static DWORD WINAPI threadHandleFunc(void* obj);
+  static void* threadHandleFunc(void* obj);
 
-  HANDLE m_thread;
+  pthread_t m_thread;
   int m_pause; //pause state
   int m_state; //thread state
   bool m_threadExited; //thread terminated
   void (*m_func)(void*); //threaded func ptr
   void* m_data;
 };
-
-template<typename T>
-std::string to_string(const T & Value)
-{
-  std::ostringstream oss;
-  oss << Value;
-  return oss.str();
-}
 
 #endif // CTHREAD_H_INCLUDED

@@ -25,6 +25,7 @@
 					<Add directory="src" />
 				</ResourceCompiler>
 				<Linker>
+					<Add library="lib/libpthreadGC2.a" />
 					<Add directory="lib" />
 				</Linker>
 			</Target>
@@ -48,6 +49,7 @@
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="lib/libpthreadGC2.a" />
 					<Add directory="lib" />
 				</Linker>
 			</Target>
@@ -58,9 +60,11 @@
 		</Compiler>
 		<Unit filename="inc/Cthread.h" />
 		<Unit filename="inc/hooksystem.h" />
+		<Unit filename="inc/utilities.h" />
 		<Unit filename="src/Cthread.cpp" />
 		<Unit filename="src/hooksystem.cpp" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/utilities.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />
