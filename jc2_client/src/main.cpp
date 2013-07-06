@@ -7,6 +7,7 @@ CThread* dllThread = NULL;
 
 void dllthreadmain(void* arg)
 {
+  MessageBoxA(NULL, NULL, "Hello", MB_OK);
 }
 
 void* gameCreateThread()

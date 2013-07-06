@@ -43,23 +43,18 @@ void* CThread::threadHandleFunc(void* obj)
 
   do
     {
-      MessageBox(NULL, "boucle", NULL, MB_OK);
       if(thread->GetPause() == PAUSE)
         {
           Sleep(10);
-          MessageBox(NULL, "sleep", NULL, MB_OK);
         }
       else
         {
           thread->SetState(BUSY);
-          MessageBox(NULL, "call", NULL, MB_OK);
-          // func(data);
-          MessageBox(NULL, "bacall", NULL, MB_OK);
+          func(data);
         }
       thread->SetState(IDLE);
     }
   while(thread->GetState() != STOP);
-  MessageBox(NULL, "byee", NULL, MB_OK);
   thread->SetExited(true);
   return (NULL);
 }
