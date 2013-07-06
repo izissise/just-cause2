@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <windows.h>
+#include <stddef.h>
 #include "psapi.h" //pour les fonctions specifique
 #include "CError.h"
 
