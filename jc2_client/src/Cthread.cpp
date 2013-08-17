@@ -6,6 +6,7 @@ CThread::CThread(void (*func)(void*), void* data)
   m_threadExited = false;
   m_pause = PAUSE;
   m_data = data;
+  m_created = false;
 }
 
 CThread::~CThread()
@@ -28,18 +29,22 @@ void CThread::waitThreadIDLE()
 void CThread::startThread()
 {
   this->SetPause(RUN);
-  if (!pthread_create(&m_thread,NULL, &CThread::threadHandleFunc, (void*)this))  //create thread
-    {
-      this->SetPause(PAUSE);
-      this->SetExited(true);
-    }
+  if (!m_created)
+    if (!pthread_create(&m_thread, NULL, &CThread::threadHandleFunc, (void*)this)) //create thread
+      m_created = true;
+    else
+      {
+        this->SetExited(true);
+        this->SetState(STOP);
+        this->SetPause(PAUSE);
+      }
 }
 
 void* CThread::threadHandleFunc(void* obj)
 {
   CThread* thread = reinterpret_cast<CThread*>(obj);
   void (*func)(void*) = thread->GetFunc();
-  void* data = thread->GetData();
+  void* data;
 
   do
     {
@@ -50,6 +55,7 @@ void* CThread::threadHandleFunc(void* obj)
       else
         {
           thread->SetState(BUSY);
+          data = thread->GetData();
           func(data);
         }
       thread->SetState(IDLE);

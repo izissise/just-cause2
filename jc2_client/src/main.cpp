@@ -7,7 +7,13 @@ CThread* dllThread = NULL;
 
 void dllthreadmain(void* arg)
 {
-  MessageBoxA(NULL, NULL, "Hello", MB_OK);
+  if (arg == NULL)
+    {
+      Sleep(1);
+      return;
+    }
+
+ // code will be here !!
 }
 
 void* gameCreateThread()
@@ -17,8 +23,6 @@ void* gameCreateThread()
   cWorld = (void*)0x0118EB9C;
   cWorld = *((void**)cWorld);
   dllThread->SetData(cWorld);
-  dllThread->SetState(STOP);
-  dllThread->startThread();
   return (cWorld);
 }
 
@@ -30,6 +34,9 @@ void initThread()
   if(!VirtualProtect((LPVOID)0x00401000, 0x00FEEFFF, PAGE_EXECUTE_READWRITE, &oldProt)) //0x00401000 to 0x00FFFFFF
     MessageBoxA(NULL, NULL, "Couldn't unprotect memory", MB_OK);
   HookInstallCall((void*)0x006002E3, (void*)&gameCreateThread);
+  dllThread->SetData(NULL);
+  dllThread->SetState(STOP);
+  dllThread->startThread();
 }
 
 extern "C"

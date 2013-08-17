@@ -39,6 +39,7 @@ private:
   pthread_t m_thread;
   int m_pause; //pause state
   int m_state; //thread state
+  bool m_created;
   bool m_threadExited; //thread terminated
   void (*m_func)(void*); //threaded func ptr
   void* m_data;
