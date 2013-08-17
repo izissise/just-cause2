@@ -37,4 +37,13 @@ void MemSub(U ptr, const T value)
   *(T*)ptr -= value;
 }
 
+template<class T, class U>
+void HookInstallInject(U from, const T* code, const int size)
+{
+  for(int i = 0; i < size; i++)
+    {
+      ((T*)from)[i] = code[i];
+    }
+}
+
 #endif

@@ -3,6 +3,8 @@
 #include "hooksystem.h"
 #include "Cthread.h"
 
+#include "cheat.h"
+
 CThread* dllThread = NULL;
 
 void dllthreadmain(void* arg)
@@ -13,6 +15,10 @@ void dllthreadmain(void* arg)
       return;
     }
 
+  SetMultiRope(true);
+  SetStrongRope(true);
+  SetGodmod(true);
+  SetNoWanted(true);
  // code will be here !!
 }
 
@@ -33,10 +39,10 @@ void initThread()
   DWORD oldProt;
   if(!VirtualProtect((LPVOID)0x00401000, 0x00FEEFFF, PAGE_EXECUTE_READWRITE, &oldProt)) //0x00401000 to 0x00FFFFFF
     MessageBoxA(NULL, NULL, "Couldn't unprotect memory", MB_OK);
-  HookInstallCall((void*)0x006002E3, (void*)&gameCreateThread);
   dllThread->SetData(NULL);
   dllThread->SetState(STOP);
   dllThread->startThread();
+  HookInstallCall((void*)0x006002E3, (void*)&gameCreateThread);
 }
 
 extern "C"
