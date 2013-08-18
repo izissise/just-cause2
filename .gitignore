@@ -19,6 +19,7 @@ Thumbs.db
 *_p.c
 *.ncb
 *.suo
+*.obj
 *.sdf
 *.sln.docstates
 *.tlb
