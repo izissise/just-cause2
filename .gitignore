@@ -20,6 +20,8 @@ Thumbs.db
 *.ncb
 *.suo
 *.obj
+*.pdb
+*.ilk
 *.sdf
 *.sln.docstates
 *.tlb

@@ -1,6 +1,12 @@
 #ifndef UTILITIES_H_INCLUDED
 #define UTILITIES_H_INCLUDED
 
+#define DLLEXPORT __declspec (dllexport)
+
+#define UNUSED __pragma(warning(suppress:4100))
+
+#define NAKED void _declspec(naked) //For hooking functions !
+
 #include <string>
 #include <sstream>
 
