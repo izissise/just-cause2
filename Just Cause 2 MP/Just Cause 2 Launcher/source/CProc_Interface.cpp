@@ -113,7 +113,7 @@ bool Proc_Interface::dealloc_memory(void* Adrr, int taille)
 bool Proc_Interface::insertDll(std::string dll, int method)
 {
   //Find the address of the LoadLibrary api, luckily for us, it is loaded in the same address for every process
-  HMODULE hLocKernel32 = GetModuleHandle("KERNEL32.DLL");
+  HMODULE hLocKernel32 = GetModuleHandle(L"KERNEL32.DLL");
   FARPROC hLocLoadLibrary = GetProcAddress(hLocKernel32, "LoadLibraryA");
 
   std::cout << "[+] Injecting dll " << dll << std::endl;
@@ -249,8 +249,7 @@ DWORD WINAPI remote_thread(void* arg)
 {
   void* adrr = arg;
 //call addr
-  __asm__ __volatile__("call %%eax"
-                       :"=a"(adrr));
+  __asm ("call %%eax":"=a"(adrr));
   return (DWORD)NULL;
 }
 
@@ -260,7 +259,7 @@ DWORD GetProcessPIDByName(const char moduleName[256]) //to comment
   DWORD cb = sizeof(idProcess);
   DWORD cdNeeded;
   BOOL didigetlist = EnumProcesses((DWORD*)&idProcess, cb, &cdNeeded);
-  char szProcessName[256] = "unknown";
+  wchar_t szProcessName[256] = L"unknown";
   int noProcess = cdNeeded / sizeof(DWORD);
   int searchPID = 0;
   for (int i = 0; i < noProcess; i++)

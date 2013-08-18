@@ -49,9 +49,9 @@ extern "C"
 {
 
 //Function called at dll attach
-  BOOL WINAPI DllMain(UNUSED HMODULE hModule,
+  BOOL WINAPI DllMain(HMODULE hModule,
                       DWORD  ul_reason_for_call,
-                      UNSEDP LPVOID lpReserved)
+                      LPVOID lpReserved)
   {
     switch (ul_reason_for_call)
       {

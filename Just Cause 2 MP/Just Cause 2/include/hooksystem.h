@@ -1,9 +1,8 @@
 #ifndef __MULTIPLAYER_HOOKSYSTEM_INIT
 #define __MULTIPLAYER_HOOKSYSTEM_INIT
 
-#define UNSEDP __attribute__((unused))
 #define NAKED void _declspec(naked) //For hooking functions !
-#define ASM __asm__ __volatile__
+#define ASM __asm
 
 #include <windows.h>
 #include <string.h>
