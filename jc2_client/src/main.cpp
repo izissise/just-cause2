@@ -1,5 +1,5 @@
 #include <windows.h>
-
+#include "detours.h"
 #include "hooksystem.h"
 #include "Cthread.h"
 
@@ -19,7 +19,10 @@ void dllthreadmain(void* arg)
   SetStrongRope(true);
   SetGodmod(true);
   SetNoWanted(true);
- // code will be here !!
+  DetourFunction((PBYTE)0x768540, hookInst->Detour);
+
+  while(1)
+    Sleep(5);
 }
 
 void* gameCreateThread()
