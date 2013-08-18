@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Just Cause 2 Launcher", "Just Cause 2 Launcher\Just Cause 2 Launcher.vcxproj", "{8433293B-B5AC-49DA-A0A0-CBBC54EB0492}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Just Cause 2", "Just Cause 2\Just Cause 2.vcxproj", "{2330A45D-1798-4831-B6D0-5852E0EAF046}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8433293B-B5AC-49DA-A0A0-CBBC54EB0492}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8433293B-B5AC-49DA-A0A0-CBBC54EB0492}.Debug|Win32.Build.0 = Debug|Win32
+		{8433293B-B5AC-49DA-A0A0-CBBC54EB0492}.Release|Win32.ActiveCfg = Release|Win32
+		{8433293B-B5AC-49DA-A0A0-CBBC54EB0492}.Release|Win32.Build.0 = Release|Win32
+		{2330A45D-1798-4831-B6D0-5852E0EAF046}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2330A45D-1798-4831-B6D0-5852E0EAF046}.Debug|Win32.Build.0 = Debug|Win32
+		{2330A45D-1798-4831-B6D0-5852E0EAF046}.Release|Win32.ActiveCfg = Release|Win32
+		{2330A45D-1798-4831-B6D0-5852E0EAF046}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
