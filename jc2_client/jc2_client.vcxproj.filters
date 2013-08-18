@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="source\cheat.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Cthread.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hooksystem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\utilities.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\cheat.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utilities.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Cthread.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hooksystem.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pthread.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sched.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\semaphore.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{b2dcd10e-7722-4629-b7f9-7cc3ff96523e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{e783cca1-60d5-4d59-8347-bafdb0a29eba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

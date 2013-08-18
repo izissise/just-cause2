@@ -19,6 +19,8 @@ Thumbs.db
 *_p.c
 *.ncb
 *.suo
+*.obj
+*.sdf
 *.sln.docstates
 *.tlb
 *.tlh
@@ -26,6 +28,7 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+ipch/
 [Bb]in
 [Dd]ebug*/
 *.sbr
