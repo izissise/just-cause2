@@ -19,7 +19,7 @@ void dllthreadmain(void* arg)
   SetStrongRope(true);
   SetGodmod(true);
   SetNoWanted(true);
-  DetourFunction((PBYTE)0x768540, hookInst->Detour);
+  //DetourFunction((PBYTE)0x768540, hookInst->Detour);
 
   while(1)
     Sleep(5);
