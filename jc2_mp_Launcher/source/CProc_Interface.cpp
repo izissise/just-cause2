@@ -250,7 +250,6 @@ DWORD WINAPI remote_thread(void* arg)
   void (*adrr)(void) = (void(*)(void))arg;
 
   adrr();
-
   return (DWORD)NULL;
 }
 

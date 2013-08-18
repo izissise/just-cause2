@@ -37,6 +37,7 @@ void* gameCreateThread()
 
 void initThread()
 {
+	MessageBoxA(NULL, NULL, "working", MB_OK);
   dllThread = new CThread(&dllthreadmain, NULL);
   /// Unprotect all of the JC2 memory at once and leave it that way
   DWORD oldProt;
@@ -50,6 +51,11 @@ void initThread()
 
 extern "C"
 {
+	DLLEXPORT void main()
+	{
+		initThread();
+	}
+
 //Function called at dll attach
   BOOL WINAPI DllMain(UNUSED HMODULE hModule,
                       DWORD  ul_reason_for_call,
@@ -58,7 +64,7 @@ extern "C"
     switch (ul_reason_for_call)
       {
       case DLL_PROCESS_ATTACH:
-        initThread();
+		  MessageBoxA(NULL, NULL, "Dll injected", MB_OK);
         break;
       case DLL_THREAD_ATTACH:
         delete dllThread; //Delete thread

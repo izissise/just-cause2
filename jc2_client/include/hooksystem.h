@@ -1,10 +1,6 @@
 #ifndef HOOKSYSTEM_H_INCLUDED
 #define HOOKSYSTEM_H_INCLUDED
 
-#define UNUSED __pragma(warning(suppress:4100))
-
-#define NAKED void _declspec(naked) //For hooking functions !
-
 #include <windows.h>
 #include <string.h>
 
