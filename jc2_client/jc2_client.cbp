@@ -26,9 +26,8 @@
 				</ResourceCompiler>
 				<Linker>
 					<Add option="/DEBUG" />
-					<Add library="lib/detours.lib" />
-					<Add library="lib/libpthreadGC2.a" />
-					<Add directory="lib" />
+					<Add library="detours.lib" />
+					<Add library="pthreadVC2.lib" />
 					<Add directory="library" />
 				</Linker>
 			</Target>
@@ -50,8 +49,8 @@
 					<Add directory="source" />
 				</ResourceCompiler>
 				<Linker>
-					<Add option="-s" />
-					<Add library="library/libpthreadGC2.a" />
+					<Add library="pthreadVC2.lib" />
+					<Add library="detours.lib" />
 					<Add directory="library" />
 				</Linker>
 			</Target>

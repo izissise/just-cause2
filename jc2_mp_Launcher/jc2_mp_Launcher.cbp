@@ -23,7 +23,6 @@
 				</ResourceCompiler>
 				<Linker>
 					<Add option="/DEBUG" />
-					<Add library="lib\libpsapi.a" />
 					<Add directory="library" />
 				</Linker>
 			</Target>
@@ -43,7 +42,6 @@
 					<Add directory="include" />
 				</ResourceCompiler>
 				<Linker>
-					<Add library="lib\libpsapi.a" />
 					<Add directory="library" />
 				</Linker>
 			</Target>
