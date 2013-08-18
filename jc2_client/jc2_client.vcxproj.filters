@@ -4,9 +4,6 @@
     <ClCompile Include="source\cheat.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="source\Cthread.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="source\hooksystem.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -22,9 +19,6 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="include\utilities.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Cthread.h">
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="include\hooksystem.h">

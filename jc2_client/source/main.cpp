@@ -1,80 +1,51 @@
 #include <windows.h>
 #include "detours.h"
 #include "hooksystem.h"
-#include "Cthread.h"
-
+#include "utilities.h"
 #include "cheat.h"
 
-CThread* dllThread = NULL;
-
-void dllthreadmain(void* arg)
+void main()
 {
-  if (arg == NULL)
-    {
-      Sleep(1);
-      return;
-    }
-
-  SetMultiRope(true);
-  SetStrongRope(true);
-  SetGodmod(true);
-  SetNoWanted(true);
-  //DetourFunction((PBYTE)0x768540, hookInst->Detour);
-
-  while(1)
-    Sleep(5);
-}
-
-void* gameCreateThread()
-{
-  void* cWorld;
-
-  cWorld = (void*)0x0118EB9C;
-  cWorld = *((void**)cWorld);
-  dllThread->SetData(cWorld);
-  return (cWorld);
+    SetMultiRope(true);
+    SetStrongRope(true);
+    SetGodmod(true);
+    SetNoWanted(true);
 }
 
 void initThread()
 {
-	MessageBoxA(NULL, NULL, "working", MB_OK);
-  dllThread = new CThread(&dllthreadmain, NULL);
-  /// Unprotect all of the JC2 memory at once and leave it that way
-  DWORD oldProt;
-  if(!VirtualProtect((LPVOID)0x00401000, 0x00FEEFFF, PAGE_EXECUTE_READWRITE, &oldProt)) //0x00401000 to 0x00FFFFFF
-    MessageBoxA(NULL, NULL, "Couldn't unprotect memory", MB_OK);
-  dllThread->SetData(NULL);
-  dllThread->SetState(STOP);
-  dllThread->startThread();
-  HookInstallCall((void*)0x006002E3, (void*)&gameCreateThread);
+    /// Unprotect all of the JC2 memory at once and leave it that way
+    DWORD oldProt;
+    if(!VirtualProtect((LPVOID)0x00401000, 0x00FEEFFF, PAGE_EXECUTE_READWRITE, &oldProt)) //0x00401000 to 0x00FFFFFF
+        MessageBoxA(NULL, NULL, "Couldn't unprotect memory", MB_OK);
+    main();
 }
 
-extern "C"
+LRESULT ClientThread(LPVOID param)
 {
-	DLLEXPORT void main()
-	{
-		initThread();
-	}
-
+    initThread();
+    return 0;
+}
 //Function called at dll attach
-  BOOL WINAPI DllMain(UNUSED HMODULE hModule,
-                      DWORD  ul_reason_for_call,
-                      UNUSED LPVOID lpReserved)
-  {
+BOOL WINAPI DllMain(UNUSED HMODULE hModule,
+                    DWORD  ul_reason_for_call,
+                    UNUSED LPVOID lpReserved)
+{
     switch (ul_reason_for_call)
-      {
-      case DLL_PROCESS_ATTACH:
-		  MessageBoxA(NULL, NULL, "Dll injected", MB_OK);
+    {
+    case DLL_PROCESS_ATTACH:
+    {
+        DWORD id;
+        MessageBoxA(NULL, NULL, "Dll injected", MB_OK);
+        CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)ClientThread, NULL, 0, &id);
+    }
+    break;
+    case DLL_THREAD_ATTACH:
         break;
-      case DLL_THREAD_ATTACH:
-        delete dllThread; //Delete thread
+    case DLL_THREAD_DETACH:
         break;
-      case DLL_THREAD_DETACH:
-        delete dllThread;
+    case DLL_PROCESS_DETACH:
         break;
-      case DLL_PROCESS_DETACH:
-        break;
-      }
+    }
     return TRUE;
-  }
 }

@@ -57,7 +57,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>library</AdditionalLibraryDirectories>
-      <AdditionalDependencies>pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,7 +80,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\cheat.h" />
-    <ClInclude Include="include\Cthread.h" />
     <ClInclude Include="include\hooksystem.h" />
     <ClInclude Include="include\pthread.h" />
     <ClInclude Include="include\sched.h" />
@@ -89,7 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\cheat.cpp" />
-    <ClCompile Include="source\Cthread.cpp" />
     <ClCompile Include="source\hooksystem.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\utilities.cpp" />

@@ -23,6 +23,7 @@ Thumbs.db
 *.pdb
 *.ilk
 *.sdf
+*.opensdf
 *.sln.docstates
 *.tlb
 *.tlh

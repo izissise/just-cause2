@@ -27,7 +27,6 @@
 				<Linker>
 					<Add option="/DEBUG" />
 					<Add library="detours.lib" />
-					<Add library="pthreadVC2.lib" />
 					<Add directory="library" />
 				</Linker>
 			</Target>
@@ -49,7 +48,6 @@
 					<Add directory="source" />
 				</ResourceCompiler>
 				<Linker>
-					<Add library="pthreadVC2.lib" />
 					<Add library="detours.lib" />
 					<Add directory="library" />
 				</Linker>
@@ -59,7 +57,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/Cthread.h" />
 		<Unit filename="include/cheat.h" />
 		<Unit filename="include/detours.h" />
 		<Unit filename="include/hooksystem.h" />
@@ -67,7 +64,6 @@
 		<Unit filename="include/sched.h" />
 		<Unit filename="include/semaphore.h" />
 		<Unit filename="include/utilities.h" />
-		<Unit filename="source/Cthread.cpp" />
 		<Unit filename="source/cheat.cpp" />
 		<Unit filename="source/hooksystem.cpp" />
 		<Unit filename="source/main.cpp" />
