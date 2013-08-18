@@ -17,14 +17,23 @@ Proc_Interface::Proc_Interface(std::string proc_name, bool debug_pri, std::strin
     {
       STARTUPINFO siLoadee;
       memset(&m_piLoadee, 0, sizeof(PROCESS_INFORMATION)); //<- init process info struct
-      memset(&siLoadee, 0, sizeof(STARTUPINFO));
+      memset(&siLoadee, 0, sizeof(STARTUPINFO)); 
 
-      string strDir = game_path.substr(0, game_path.find_last_of("/\\")); //Get the process dir name
+      wchar_t *strDir = new wchar_t[game_path.substr(0, game_path.find_last_of("/\\")).size() + 1]; //Get the process dir name
+	  wchar_t *game_pathTmp = new wchar_t[game_path.size() + 1];
+	  mbstowcs(strDir, game_path.substr(0, game_path.find_last_of("/\\")).c_str(), game_path.substr(0, game_path.find_last_of("/\\")).size());
+	  mbstowcs(game_pathTmp, game_path.c_str(), game_path.size());
+	  strDir[game_path.substr(0, game_path.find_last_of("/\\")).size()] = 0;
+	  game_pathTmp[game_path.size()] = 0;
       //STart the process in its dir
-      if (!CreateProcess(game_path.c_str(), NULL, NULL, NULL, FALSE,
-                         CREATE_SUSPENDED, NULL, strDir.c_str(), &siLoadee, &m_piLoadee))
+	  MessageBox(NULL, strDir, L"stdDir", MB_OK);
+	  MessageBox(NULL, game_pathTmp, L"game_pathTmp", MB_OK);
+      if (!CreateProcess(game_pathTmp, NULL, NULL, NULL, FALSE,
+                         CREATE_SUSPENDED, NULL, strDir, &siLoadee, &m_piLoadee))
         throw error(std::string("[-] Process can't be created, error: ")  + to_string(GetLastError()), 0);
       m_Hproc = m_piLoadee.hProcess;
+	  delete strDir;
+	  delete game_pathTmp;
     }
   else if (proc_name.length() > 2) //Else we interfere a already running process
     {
@@ -32,7 +41,7 @@ Proc_Interface::Proc_Interface(std::string proc_name, bool debug_pri, std::strin
       int i = 0;
       while(!m_PID && i < 1000)
         {
-          cerr << "\n[-] Game not Found :(\n-->Will try againin 10 sec" << endl;
+          cerr << "\n[-] Game not Found :(\n-->Will try again in 10 sec" << endl;
           Sleep(10000);
           m_PID = GetProcessPIDByName(proc_name.c_str());//try again
           i++;
@@ -260,9 +269,11 @@ DWORD GetProcessPIDByName(const char moduleName[256]) //to comment
   DWORD cb = sizeof(idProcess);
   DWORD cdNeeded;
   BOOL didigetlist = EnumProcesses((DWORD*)&idProcess, cb, &cdNeeded);
-  char szProcessName[256] = "unknown";
+  wchar_t moduleNameTmp[256];
+  wchar_t szProcessName[256] = L"unknown";
   int noProcess = cdNeeded / sizeof(DWORD);
   int searchPID = 0;
+  mbstowcs(moduleNameTmp, moduleName, 256);
   for (int i = 0; i < noProcess; i++)
     {
       HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, idProcess[i]);
@@ -275,11 +286,11 @@ DWORD GetProcessPIDByName(const char moduleName[256]) //to comment
           if ( didnumwork )
             {
               DWORD diditwork = GetModuleBaseName(hProcess, hMod, szProcessName, sizeof(szProcessName));
-              _strlwr((char*)&szProcessName);
+              wcslen(szProcessName);
               DWORD x = GetLastError();
             }
         }
-      if (!stricmp(szProcessName, moduleName)) //it's the one
+      if (!wcscmp(szProcessName, moduleNameTmp)) //it's the one
         return (idProcess[i]); //we return it
     }
   return (searchPID);
