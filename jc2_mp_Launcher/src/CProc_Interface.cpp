@@ -247,10 +247,11 @@ HANDLE Proc_Interface::create_remote_thread(void* addr)
 
 DWORD WINAPI remote_thread(void* arg)
 {
-  void* adrr = arg;
+  void (*adrr)(void) = (void(*)(void))arg;
+  adrr();
 //call addr
-  __asm__ __volatile__("call %%eax"
-                       :"=a"(adrr));
+ /* __asm__ __volatile__("call %%eax"
+                       :"=a"(adrr));*/
   return (DWORD)NULL;
 }
 

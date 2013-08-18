@@ -26,6 +26,7 @@
 				</ResourceCompiler>
 				<Linker>
 					<Add library="lib/libpthreadGC2.a" />
+					<Add library="lib/detours.lib" />
 					<Add directory="lib" />
 				</Linker>
 			</Target>
@@ -106,15 +107,12 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="inc/Cthread.h" />
-		<Unit filename="inc/cheat.h">
-			<Option target="Debug" />
-		</Unit>
+		<Unit filename="inc/cheat.h" />
+		<Unit filename="inc/detours.h" />
 		<Unit filename="inc/hooksystem.h" />
 		<Unit filename="inc/utilities.h" />
 		<Unit filename="src/Cthread.cpp" />
-		<Unit filename="src/cheat.cpp">
-			<Option target="Debug" />
-		</Unit>
+		<Unit filename="src/cheat.cpp" />
 		<Unit filename="src/hooksystem.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/utilities.cpp" />
