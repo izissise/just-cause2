@@ -7,6 +7,8 @@
 
 #define NAKED void _declspec(naked) //For hooking functions !
 
+#define ASM _asm
+
 #include <string>
 #include <sstream>
 

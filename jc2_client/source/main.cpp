@@ -9,7 +9,10 @@ void main()
     SetMultiRope(true);
     SetStrongRope(true);
     SetGodmod(true);
-    SetNoWanted(true);
+    //SetNoWanted(true);
+    SetInfiniteAmmo(true);
+    SetInfiniteGrenade(true);
+    SetInfiniteHackTime(true);
 }
 
 void initThread()
